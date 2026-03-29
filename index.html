@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jesse & Lisa — August 22, 2026</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400&display=swap" rel="stylesheet"/>
+</head>
+<body class="home-page">
+
+  <nav>
+    <ul>
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="schedule.html">Schedule</a></li>
+      <li><a href="venue.html">Venue</a></li>
+      <li><a href="registry.html">Registry</a></li>
+      <li><a href="rsvp.html" class="nav-rsvp">RSVP</a></li>
+    </ul>
+  </nav>
+
+  <main class="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">We're getting married</p>
+      <h1 class="hero-names">Jesse<br/><span>&</span><br/>Lisa</h1>
+      <p class="hero-date">August 22, 2026</p>
+      <div class="hero-divider"></div>
+      <p class="hero-venue">The Hyeholde · Coraopolis, Pennsylvania</p>
+      <a href="rsvp.html" class="btn-primary">Kindly RSVP</a>
+    </div>
+    <div class="countdown" id="countdown">
+      <div class="countdown-item"><span id="cd-days">--</span><label>Days</label></div>
+      <div class="countdown-sep">·</div>
+      <div class="countdown-item"><span id="cd-hours">--</span><label>Hours</label></div>
+      <div class="countdown-sep">·</div>
+      <div class="countdown-item"><span id="cd-minutes">--</span><label>Minutes</label></div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Jesse & Lisa · August 22, 2026</p>
+  </footer>
+
+  <script>
+    function updateCountdown() {
+      const wedding = new Date('2026-08-22T16:00:00');
+      const now = new Date();
+      const diff = wedding - now;
+      if (diff <= 0) {
+        document.getElementById('countdown').style.display = 'none';
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      document.getElementById('cd-days').textContent = days;
+      document.getElementById('cd-hours').textContent = hours;
+      document.getElementById('cd-minutes').textContent = minutes;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 60000);
+  </script>
+</body>
+</html>
