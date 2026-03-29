@@ -59,8 +59,13 @@ nav a {
   transition: color 0.2s;
 }
 
-nav a:hover,
-nav a.active { color: var(--ink); }
+nav a:hover { color: var(--ink); }
+
+nav a.active {
+  color: var(--ink);
+  border-bottom: 1px solid var(--ink-light);
+  padding-bottom: 1px;
+}
 
 nav a.nav-rsvp {
   color: var(--gold);
@@ -69,6 +74,8 @@ nav a.nav-rsvp {
 }
 
 nav a.nav-rsvp:hover { color: var(--ink); border-color: var(--ink); }
+
+nav a.nav-rsvp.active { color: var(--ink); border-color: var(--ink); }
 
 /* ─── Hero (Home) ────────────────────────────────────────────────────────────── */
 .home-page main.hero {
