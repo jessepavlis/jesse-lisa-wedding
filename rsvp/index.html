@@ -33,7 +33,7 @@
         </div>
 
         <div class="form-group">
-          <label for="email">Email Address</label>
+          <label for="email">Email Address <span class="optional">(optional)</span></label>
           <input type="email" id="email" placeholder="your@email.com" />
         </div>
 
@@ -119,7 +119,7 @@
       errorEl.textContent = '';
 
       if (!name) { errorEl.textContent = 'Please enter your name.'; return; }
-      if (!email || !email.includes('@')) { errorEl.textContent = 'Please enter a valid email.'; return; }
+      if (email && !email.includes('@')) { errorEl.textContent = 'Please enter a valid email.'; return; }
       if (!attendingEl) { errorEl.textContent = 'Please select whether you\'ll be attending.'; return; }
 
       const attending = attendingEl.value;
