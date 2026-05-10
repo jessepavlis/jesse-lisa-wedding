@@ -5,7 +5,7 @@ const WEDDING = {
   coupleAnd:       'Jesse and Lisa',         // natural prose form
   date:            'August 22, 2026',        // display date
   venueLine:       'The Hyeholde · Coraopolis, Pennsylvania',
-  rsvpBy:          'July 1, 2026',           // RSVP deadline
+  rsvpBy:          'July 11, 2026',          // RSVP deadline
   countdownTarget: '2026-08-22T16:00:00',    // ISO datetime for countdown
 };
 // ─────────────────────────────────────────────────────────────────────────────
