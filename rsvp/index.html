@@ -59,16 +59,6 @@
           </select>
         </div>
 
-        <div class="form-group" id="dietary-group">
-          <label for="dietary">Dietary Restrictions or Allergies</label>
-          <input type="text" id="dietary" placeholder="None, vegetarian, gluten-free, etc." />
-        </div>
-
-        <div class="form-group">
-          <label for="note">A Note for the Couple <span class="optional">(optional)</span></label>
-          <textarea id="note" rows="3" placeholder="Share a message, song request, or well wishes..."></textarea>
-        </div>
-
         <button class="btn-primary" id="submit-btn" onclick="submitRSVP()">Send RSVP</button>
         <p class="form-error" id="form-error"></p>
       </div>
@@ -111,8 +101,6 @@
       const email = document.getElementById('email').value.trim();
       const attendingEl = document.querySelector('input[name="attending"]:checked');
       const guests = document.getElementById('guests').value;
-      const dietary = document.getElementById('dietary').value.trim();
-      const note = document.getElementById('note').value.trim();
       const errorEl = document.getElementById('form-error');
       const btn = document.getElementById('submit-btn');
 
@@ -133,8 +121,6 @@
           email,
           attending,
           guests: attending === 'yes' ? parseInt(guests) : 0,
-          dietary: attending === 'yes' ? dietary : '',
-          note,
           submittedAt: serverTimestamp()
         });
 
