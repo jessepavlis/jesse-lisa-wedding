@@ -1,14 +1,23 @@
+/* ─── Fonts ──────────────────────────────────────────────────────────────────── */
+@font-face {
+  font-family: 'Kindfield';
+  src: url('/wedding/fonts/Kindfield-0vpPG.ttf.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ─── Variables ─────────────────────────────────────────────────────────────── */
 :root {
-  --cream: #faf8f4;
+  --cream: #ededcc;
   --warm-white: #f5f2ec;
-  --ink: #1a1714;
+  --ink: #079a9b;
   --ink-light: #5a5450;
   --gold: #b89a6a;
   --gold-light: #d4bc96;
   --border: #e2ddd6;
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'Jost', sans-serif;
+  --font-display: 'Kindfield', Georgia, serif;
+  --font-body: 'Kindfield', Georgia, serif;
 }
 
 /* ─── Reset ──────────────────────────────────────────────────────────────────── */
@@ -27,6 +36,9 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* ─── Sparkle layer ──────────────────────────────────────────────────────────── */
+main, footer { position: relative; z-index: 1; }
+
 /* ─── Nav ────────────────────────────────────────────────────────────────────── */
 nav {
   position: fixed;
@@ -37,7 +49,7 @@ nav {
   padding: 1.5rem 2.5rem;
   display: flex;
   justify-content: center;
-  background: rgba(250, 248, 244, 0.92);
+  background: #215d67;
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border);
 }
@@ -55,15 +67,15 @@ nav a {
   font-size: 0.72rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--ink-light);
+  color: #ed901e;
   transition: color 0.2s;
 }
 
-nav a:hover { color: var(--ink); border-color: var(--ink); }
+nav a:hover { color: #ed901e; border-color: #ed901e; }
 
 nav a.active {
-  color: var(--gold);
-  border-bottom: 1px solid var(--gold-light);
+  color: #ed901e;
+  border-bottom: 1px solid #ed901e;
   padding-bottom: 1px;
 }
 
@@ -101,17 +113,16 @@ nav a.active {
   font-size: 0.7rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: #ed901e;
   margin-bottom: 2rem;
 }
 
-.hero-names {
-  font-family: var(--font-display);
-  font-size: clamp(5rem, 14vw, 10rem);
-  font-weight: 300;
-  line-height: 0.9;
-  letter-spacing: -0.01em;
-  color: var(--ink);
+.hero-names-img {
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
 .hero-names span {
@@ -127,7 +138,7 @@ nav a.active {
   font-size: 0.8rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--ink-light);
+  color: #215d67;
   margin-top: 2rem;
 }
 
@@ -142,8 +153,13 @@ nav a.active {
   font-family: var(--font-display);
   font-style: italic;
   font-size: 1.15rem;
-  color: var(--ink-light);
+  color: #ea6c8d;
   margin-bottom: 2.5rem;
+}
+
+.hero-venue-location {
+  color: #ea6c8d;
+  font-style: normal;
 }
 
 /* Countdown */
@@ -205,7 +221,7 @@ nav a.active {
   font-size: 0.68rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: #ed901e;
   margin-bottom: 0.75rem;
 }
 
@@ -697,7 +713,7 @@ footer {
   font-size: 0.68rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--gold-light);
+  color: #ed901e;
 }
 
 /* ─── Animations ─────────────────────────────────────────────────────────────── */
