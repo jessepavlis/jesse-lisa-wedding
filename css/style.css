@@ -441,6 +441,7 @@ nav a.active {
   text-transform: uppercase;
   color: var(--ink-light);
   margin-bottom: 0.6rem;
+  margin-top: 0.6rem;
 }
 
 .optional {
@@ -491,6 +492,84 @@ nav a.active {
   padding-right: 1.5rem;
 }
 
+.meal-guest-group {
+  margin-top: 1.5rem;
+}
+
+.meal-guest-group:first-child {
+  margin-top: 0;
+}
+
+.meal-select {
+  position: relative;
+}
+
+.meal-select-trigger {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  padding: 0.6rem 1.5rem 0.6rem 0;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-body);
+  color: var(--ink);
+  transition: border-color 0.2s;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23b89a6a'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+}
+
+.meal-select-trigger:focus { outline: none; border-bottom-color: var(--gold); }
+
+.meal-select-placeholder {
+  font-size: 0.95rem;
+  color: var(--border);
+}
+
+.meal-select-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+  right: 0;
+  background: var(--cream);
+  border: 1px solid var(--border);
+  z-index: 20;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.meal-select-dropdown.open { display: block; }
+
+.meal-option {
+  padding: 0.85rem 1rem;
+  cursor: pointer;
+  transition: background 0.15s;
+  border-bottom: 1px solid var(--border);
+}
+
+.meal-option:last-child { border-bottom: none; }
+.meal-option:hover { background: var(--warm-white); }
+
+.meal-option-name {
+  display: block;
+  font-weight: 400;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+
+.meal-option-sauce {
+  display: block;
+  font-style: italic;
+  font-size: 0.78rem;
+  color: var(--ink-light);
+  margin-top: 0.2rem;
+}
+
+.meal-select-trigger.has-value .meal-option-name {
+  font-size: 0.95rem;
+}
+
 .radio-group {
   display: flex;
   flex-direction: column;
@@ -519,6 +598,8 @@ nav a.active {
   cursor: pointer;
   position: relative;
   flex-shrink: 0;
+  align-self: center;
+  margin: 0;
   background: transparent;
   transition: border-color 0.2s;
 }

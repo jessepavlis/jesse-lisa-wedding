@@ -49,7 +49,7 @@
           </div>
         </div>
 
-        <div class="form-group" id="guests-group">
+        <div class="form-group" id="guests-group" style="display:none;">
           <label for="guests">Number of Guests (including yourself)</label>
           <select id="guests">
             <option value="1">1</option>
@@ -57,6 +57,11 @@
             <option value="3">3</option>
             <option value="4">4</option>
           </select>
+        </div>
+
+        <div class="form-group" id="meal-choices-group" style="display:none;">
+          <label>Meal Selection</label>
+          <div id="meal-choices-container"></div>
         </div>
 
         <button class="btn-primary" id="submit-btn" onclick="submitRSVP()">Send RSVP</button>
@@ -80,6 +85,7 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
     import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app-check.js";
 
     // ─── REPLACE THESE WITH YOUR FIREBASE CONFIG ───────────────────────────────
     const firebaseConfig = {
@@ -94,7 +100,82 @@
     // ───────────────────────────────────────────────────────────────────────────
 
     const app = initializeApp(firebaseConfig);
+    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+      self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+    }
+    initializeAppCheck(app, {
+      provider: new ReCaptchaV3Provider('6Lc37-QsAAAAAF6Qq_4Lm-1k3i0VpUJ-ByYeuvPv'),
+      isTokenAutoRefreshEnabled: true
+    });
     const db = getFirestore(app);
+
+    const mealOptions = [
+      { value: 'Grilled Beef Ribeye',           name: 'Grilled Beef Ribeye',           sauce: 'Mushroom Jus' },
+      { value: 'Pan Seared Salmon',              name: 'Pan Seared Salmon',              sauce: 'Citrus Butter Cream' },
+      { value: "Eichner's Farm Chicken Breast",  name: "Eichner's Farm Chicken Breast",  sauce: 'Whole Grain Mustard Demi' },
+      { value: 'Vegetarian Feast of the Season', name: 'Vegetarian Feast of the Season', sauce: null },
+    ];
+
+    function optionHTML(opt) {
+      return `<span class="meal-option-name">${opt.name}</span>${opt.sauce ? `<span class="meal-option-sauce">${opt.sauce}</span>` : ''}`;
+    }
+
+    function renderMealChoices(count) {
+      const container = document.getElementById('meal-choices-container');
+      container.innerHTML = '';
+      for (let i = 1; i <= count; i++) {
+        const label = i === 1 ? 'Your meal' : `Guest ${i} meal`;
+        const group = document.createElement('div');
+        group.className = 'meal-guest-group';
+
+        const labelEl = document.createElement('label');
+        labelEl.textContent = label;
+
+        const wrap = document.createElement('div');
+        wrap.className = 'meal-select';
+        wrap.dataset.value = '';
+
+        const trigger = document.createElement('button');
+        trigger.type = 'button';
+        trigger.className = 'meal-select-trigger';
+        trigger.innerHTML = '<span class="meal-select-placeholder">Select a meal</span>';
+
+        const dropdown = document.createElement('div');
+        dropdown.className = 'meal-select-dropdown';
+
+        mealOptions.forEach(opt => {
+          const item = document.createElement('div');
+          item.className = 'meal-option';
+          item.dataset.value = opt.value;
+          item.innerHTML = optionHTML(opt);
+          item.addEventListener('click', () => {
+            wrap.dataset.value = opt.value;
+            trigger.innerHTML = optionHTML(opt);
+            trigger.classList.add('has-value');
+            dropdown.classList.remove('open');
+          });
+          dropdown.appendChild(item);
+        });
+
+        trigger.addEventListener('click', e => {
+          e.stopPropagation();
+          document.querySelectorAll('.meal-select-dropdown.open').forEach(d => {
+            if (d !== dropdown) d.classList.remove('open');
+          });
+          dropdown.classList.toggle('open');
+        });
+
+        wrap.appendChild(trigger);
+        wrap.appendChild(dropdown);
+        group.appendChild(labelEl);
+        group.appendChild(wrap);
+        container.appendChild(group);
+      }
+    }
+
+    document.addEventListener('click', () => {
+      document.querySelectorAll('.meal-select-dropdown.open').forEach(d => d.classList.remove('open'));
+    });
 
     window.submitRSVP = async function () {
       const name = document.getElementById('name').value.trim();
@@ -112,6 +193,18 @@
 
       const attending = attendingEl.value;
 
+      let mealChoices = [];
+      if (attending === 'yes') {
+        mealChoices = Array.from(document.querySelectorAll('.meal-select')).map((el, i) => ({
+          guest: i + 1,
+          meal: el.dataset.value
+        }));
+        if (mealChoices.some(m => !m.meal)) {
+          errorEl.textContent = 'Please select a meal for each guest.';
+          return;
+        }
+      }
+
       btn.textContent = 'Sending...';
       btn.disabled = true;
 
@@ -121,6 +214,7 @@
           email,
           attending,
           guests: attending === 'yes' ? parseInt(guests) : 0,
+          mealChoices,
           submittedAt: serverTimestamp()
         });
 
@@ -140,13 +234,19 @@
       }
     };
 
-    // Show/hide guest & dietary fields based on attendance
+    // Show/hide guest & meal fields based on attendance
     document.querySelectorAll('input[name="attending"]').forEach(el => {
       el.addEventListener('change', () => {
         const show = el.value === 'yes';
         document.getElementById('guests-group').style.display = show ? 'block' : 'none';
-        document.getElementById('dietary-group').style.display = show ? 'block' : 'none';
+        document.getElementById('meal-choices-group').style.display = show ? 'block' : 'none';
+        if (show) renderMealChoices(parseInt(document.getElementById('guests').value));
       });
+    });
+
+    // Re-render meal selectors when guest count changes
+    document.getElementById('guests').addEventListener('change', function () {
+      renderMealChoices(parseInt(this.value));
     });
   </script>
 </body>
