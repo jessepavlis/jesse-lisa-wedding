@@ -21,59 +21,10 @@
 
   <main class="page-main">
     <header class="page-header">
-      <p class="page-eyebrow">Please respond by <span data-wc="rsvpBy">July 11, 2026</span></p>
+      <p class="page-eyebrow">Coming soon</p>
       <h1>RSVP</h1>
+      <p class="page-subtitle">RSVPs will open shortly. Please check back soon.</p>
     </header>
-
-    <section class="rsvp-section">
-      <div id="rsvp-form-wrap">
-        <div class="form-group">
-          <label for="name">Full Name</label>
-          <input type="text" id="name" placeholder="Your full name" />
-        </div>
-
-        <div class="form-group">
-          <label for="email">Email Address <span class="optional">(optional)</span></label>
-          <input type="email" id="email" placeholder="your@email.com" />
-        </div>
-
-        <div class="form-group">
-          <label>Will you be attending?</label>
-          <div class="radio-group">
-            <label class="radio-label">
-              <input type="radio" name="attending" value="yes" /> Yes, I'll be there
-            </label>
-            <label class="radio-label">
-              <input type="radio" name="attending" value="no" /> Sorry, I can't make it
-            </label>
-          </div>
-        </div>
-
-        <div class="form-group" id="guests-group" style="display:none;">
-          <label for="guests">Number of Guests (including yourself)</label>
-          <select id="guests">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-          </select>
-        </div>
-
-        <div class="form-group" id="meal-choices-group" style="display:none;">
-          <label>Meal Selection</label>
-          <div id="meal-choices-container"></div>
-        </div>
-
-        <button class="btn-primary" id="submit-btn" onclick="submitRSVP()">Send RSVP</button>
-        <p class="form-error" id="form-error"></p>
-      </div>
-
-      <div id="rsvp-success" class="rsvp-success" style="display:none;">
-        <div class="success-icon">✦</div>
-        <h2>Thank you!</h2>
-        <p id="success-message">We've received your RSVP and can't wait to celebrate with you.</p>
-        <a href="/wedding" class="btn-outline" style="margin-top:2rem;">Back to Home</a>
-      </div>
     </section>
   </main>
 
